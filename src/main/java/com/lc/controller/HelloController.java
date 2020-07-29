@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@SuppressWarnings("serial")
 @RestController
 public class HelloController {
 
@@ -28,8 +27,10 @@ public class HelloController {
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String index() {
-        List<ServiceInstance> instances = client.getInstances("hello-service");
+        logger.info("welcome");
+        List<ServiceInstance> instances = client.getInstances("spring-cloud-provider");
         for (int i = 0; i < instances.size(); i++) {
+            System.out.println("/hello,host:" + instances.get(i).getHost() + ",service_id:" + instances.get(i).getServiceId());
             logger.info("/hello,host:" + instances.get(i).getHost() + ",service_id:" + instances.get(i).getServiceId());
         }
         return "Hello World";
